@@ -4,9 +4,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
 	// 入口文件
-    entry: './src/index.js',
+    entry: {
+        "index": "./src/pages/index/index.js",
+        "cookie": "./src/pages/cookie/index.js"
+    },
     output: {
-        filename: 'bundle.[hash].js',
+        filename: '[name]-bundle.[hash].js',
         path: path.join(__dirname, '/dist')
     },
     module: {
@@ -30,7 +33,14 @@ module.exports = {
     // 配置相应的插件
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            filename: "index.html",
+            template: './src/pages/index/index.html',
+            chunks: ["index"]
+        }),
+        new HtmlWebpackPlugin({
+            filename: "cookie.html",
+            template: './src/pages/cookie/index.html',
+            chunks: ["cookie"]
         }),
         new CleanWebpackPlugin()
     ]
